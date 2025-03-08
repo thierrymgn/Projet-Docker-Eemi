@@ -58,8 +58,8 @@ docker-compose up -d
 
 - **Système**: PostgreSQL
 - **Serveur**: postgres
-- **Utilisateur**: postgres
-- **Mot de passe**: postgres (ou celui défini dans .env)
+- **Utilisateur**: todo_user
+- **Mot de passe**: secret_password
 - **Base de données**: todo_db
 
 ## Structure du projet

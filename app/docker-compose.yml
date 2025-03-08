@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+    symfony:
+        build:
+            context: ./symfony
+        container_name: todos_symfony
+        restart: always
+        volumes:
+            - ./symfony:/var/www/html
+        depends_on:
+            - composer
+        environment:
+            - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+        networks:
+            - app_network
+            - db_external
+        ports:
+            - "${APP_PORT}:80"
+
+    composer:
+        build:
+            context: ./composer
+        container_name: todos_composer
+        volumes:
+            - ./symfony:/app
+        command: install
+        networks:
+            - app_network
+
+networks:
+    app_network:
+        driver: bridge
+    db_external:
+        external: true
+        name: db_db_network

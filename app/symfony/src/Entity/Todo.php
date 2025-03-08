@@ -6,17 +6,18 @@ use App\Repository\TodoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TodoRepository::class)]
+#[ORM\Table(name: 'todos')]
 class Todo
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\GeneratedValue(strategy: "IDENTITY")]
+    #[ORM\Column(name: "id", type: "integer")]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name: "done", type: "boolean")]
     private ?bool $done = null;
 
     public function getId(): ?int

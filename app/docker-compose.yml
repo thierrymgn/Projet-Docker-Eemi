@@ -25,6 +25,8 @@ services:
         volumes:
             - ./symfony:/app
         command: install
+        environment:
+            - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?serverVersion=14&charset=utf8
         networks:
             - app_network
 

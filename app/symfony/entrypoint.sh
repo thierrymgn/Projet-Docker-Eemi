@@ -7,6 +7,7 @@ counter=0
 until pg_isready -h ${DB_HOST} -p ${POSTGRES_PORT} -U ${POSTGRES_USER} || [ $counter -eq $timeout ]
 do
     echo "En attente de PostgreSQL... ${counter}s"
+    echo "pg_isready -h ${DB_HOST} -p ${POSTGRES_PORT} -U ${POSTGRES_USER}"
     sleep 1
     counter=$((counter+1))
 done

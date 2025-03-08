@@ -7,6 +7,31 @@ Application Todo List avec une API Symfony connectée à une base de données Po
 - Docker
 - Docker Compose
 
+## Configuration
+
+### Variables d'environnement pour la base de données (db/.env)
+
+```
+POSTGRES_USER=todo_user
+POSTGRES_PASSWORD=secret_password
+POSTGRES_DB=todo_db
+POSTGRES_PORT=5432
+ADMINER_PORT=8081
+```
+
+### Variables d'environnement pour l'application (app/.env)
+
+```
+APP_PORT=8000
+DB_HOST=todos_postgres
+POSTGRES_USER=todo_user
+POSTGRES_PASSWORD=secret_password
+POSTGRES_DB=todo_db
+POSTGRES_PORT=5432
+APP_ENV=dev
+APP_SECRET=2ca64f8d637c9f3c1b696ec05a50705e
+```
+
 ## Démarrage rapide
 
 ```bash
@@ -58,28 +83,3 @@ todo-app/
 - API Symfony pour accéder aux todos
 - Interface utilisateur pour visualiser les todos
 - Séparation des services (base de données et application)
-
-## Configuration
-
-### Variables d'environnement pour la base de données (db/.env)
-
-```
-POSTGRES_USER=todo_user
-POSTGRES_PASSWORD=secret_password
-POSTGRES_DB=todo_db
-POSTGRES_PORT=5432
-ADMINER_PORT=8081
-```
-
-### Variables d'environnement pour l'application (app/.env)
-
-```
-APP_PORT=8000
-DB_HOST=todos_postgres
-POSTGRES_USER=todo_user
-POSTGRES_PASSWORD=secret_password
-POSTGRES_DB=todo_db
-POSTGRES_PORT=5432
-APP_ENV=dev
-APP_SECRET=2ca64f8d637c9f3c1b696ec05a50705e
-```

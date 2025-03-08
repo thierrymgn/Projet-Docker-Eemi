@@ -10,6 +10,8 @@ services:
             - ./symfony:/var/www/html
         depends_on:
             - composer
+        env_file:
+            - ./.env
         environment:
             - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
         networks:

@@ -25,18 +25,26 @@ fi
 echo "Services de base de données démarrés avec succès."
 
 echo "Attente du démarrage de PostgreSQL..."
-RETRIES=10
-until docker exec -it todos_postgres pg_isready -U ${POSTGRES_USER:-todo_user} || [ $RETRIES -eq 0 ]; do
-  echo "En attente de PostgreSQL... $(( 10 - RETRIES )) secondes écoulées"
+RETRIES=20
+until docker exec -it todos_postgres pg_isready -U postgres || [ $RETRIES -eq 0 ]; do
+  echo "En attente de PostgreSQL... $(( 20 - RETRIES )) secondes écoulées"
   RETRIES=$((RETRIES-1))
   sleep 1
 done
+
+echo "Vérification de la base de données..."
+docker exec -it todos_postgres psql -U postgres -c "SELECT 1 FROM pg_database WHERE datname='todo_db'" | grep -q 1 || \
+docker exec -it todos_postgres sh -c "/docker-entrypoint-initdb.d/setup.sh"
 
 if [ $RETRIES -eq 0 ]; then
   echo "PostgreSQL n'a pas démarré à temps, mais on continue..."
 else
   echo "PostgreSQL est prêt!"
 fi
+
+echo "Vérification que l'utilisateur todo_user peut se connecter..."
+sleep 5
+docker exec -it todos_postgres psql -U todo_user -d todo_db -c "SELECT 1" || echo "Impossible de se connecter avec todo_user"
 
 echo "Démarrage des services d'application..."
 cd ../app

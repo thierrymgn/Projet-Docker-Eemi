@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class TodoController extends AbstractController
 {
-    #[Route('/todos', name: 'app_todo')]
+    #[Route('/', name: 'app_todo')]
     public function index(): Response
     {
         return $this->render('todo/index.html.twig', [
